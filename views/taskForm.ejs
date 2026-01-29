@@ -1,0 +1,69 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+
+    <%- include('partials/navbar'); %>
+
+        <div class="create-blog content">
+            <h2>
+                <%= title %>
+            </h2>
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="error">
+                    <%= error %>
+                </div>
+                <% } %>
+                    <form action="<%= task ? '/tasks/edit/' + task._id : '/tasks/create' %>" method="POST">
+                        <label for="title">Task Title:</label>
+                        <input type="text" id="title" name="title" required value="<%= task ? task.title : '' %>">
+
+                        <label for="description">Task Description:</label>
+                        <textarea id="description" name="description"
+                            required><%= task ? task.description : '' %></textarea>
+
+                        <label for="status">Status:</label>
+                        <select name="status" id="status">
+                            <option value="pending" <%=task && task.status==='pending' ? 'selected' : '' %>>Pending
+                            </option>
+                            <option value="completed" <%=task && task.status==='completed' ? 'selected' : '' %>
+                                >Completed</option>
+                        </select>
+
+                        <button>
+                            <%= task ? 'Update' : 'Submit' %>
+                        </button>
+                    </form>
+        </div>
+
+        <style>
+            .create-blog {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .create-blog input,
+            .create-blog textarea,
+            .create-blog select {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+                padding: 8px;
+            }
+
+            .create-blog button {
+                margin-top: 20px;
+                display: block;
+            }
+        </style>
+
+</body>
+
+</html>
